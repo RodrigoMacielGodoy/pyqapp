@@ -1,0 +1,1 @@
+from .pageFactory import getPage

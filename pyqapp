@@ -24,12 +24,17 @@ function create_file_structure {
     cd ./src
 
     mkdir pages
-    touch ./pages/__init__.py
-
+    echo "from .homePage import HomePage" >> ./pages/__init__.py
+    cp -R $SCRIPT_DIR/templates/homePage ./pages/homePage
+    cp $SCRIPT_DIR/templates/assets/home.ui assets/ui/pages/homePage.ui
+    
     mkdir services
     touch ./services/__init__.py
 
     cp -R $SCRIPT_DIR/templates/di ./di
+    cp -R $SCRIPT_DIR/templates/navigation ./navigation
+    cp -R $SCRIPT_DIR/templates/pageFactory ./pageFactory
+
 
     cp $SCRIPT_DIR/templates/main.py ./main.py
 }
