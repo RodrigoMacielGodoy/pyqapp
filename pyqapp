@@ -1,0 +1,57 @@
+#!/bin/bash
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+function create_dir {
+    mkdir $1
+}
+
+function create_env {
+    virtualenv -p $1 $2
+}
+
+function activate_env {
+    source $1/bin/activate
+    cd $1
+}
+
+function create_file_structure {
+    mkdir src
+    mkdir assets
+    mkdir assets/ui
+    mkdir assets/ui/pages
+    mkdir assets/ui/widgets
+    mkdir assets/resources
+    cd ./src
+
+    mkdir pages
+    touch ./pages/__init__.py
+
+    mkdir services
+    touch ./services/__init__.py
+
+    cp -R $SCRIPT_DIR/templates/di ./di
+
+    cp $SCRIPT_DIR/templates/main.py ./main.py
+}
+
+function install_dependencies {
+    echo "Installing modules"
+    pip install --upgrade pip --quiet
+    pip install pyqt5 pyqt5-tools --quiet
+}
+
+case $1 in
+start)
+    create_dir $2
+    create_env python3 ./$2
+    activate_env ./$2
+    create_file_structure
+    # install_dependencies
+    shift # past argument
+    ;;
+*)
+    echo "Unknown option $1"
+    exit 1
+    ;;
+esac
+
