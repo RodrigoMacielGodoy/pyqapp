@@ -43,8 +43,8 @@ function install_dependencies {
 case $1 in
 start)
     create_dir $2
-    create_env python3 ./$2
-    activate_env ./$2
+    create_env python3 $2
+    activate_env $2
     create_file_structure
     # install_dependencies
     shift # past argument
