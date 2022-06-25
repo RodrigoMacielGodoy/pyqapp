@@ -46,7 +46,7 @@ start)
     create_env python3 $2
     activate_env $2
     create_file_structure
-    # install_dependencies
+    install_dependencies
     shift # past argument
     ;;
 *)
